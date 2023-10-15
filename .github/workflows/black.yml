@@ -13,5 +13,5 @@ jobs:
           pip install black==23.9.1
 
       - name: Run Black
-        run: black --check --diff
+        run: black --check --diff .
       # - uses: psf/black@stable
