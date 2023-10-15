@@ -1,0 +1,1084 @@
+module ALU_TOP_tb ();
+  
+    
+parameter A_WIDTH = 16             ; //initialize a parameter variable with value 16 
+parameter B_WIDTH = 16             ; //initialize a parameter variable with value 16 
+parameter ALU_FUN_WIDTH = 4        ; //initialize a parameter variable with value 4
+parameter ALU_ARITH_OUT_WIDTH = 16 ; //initialize a parameter variable with value 16
+parameter ALU_LOGIC_OUT_WIDTH = 16 ; //initialize a parameter variable with value 16
+parameter ALU_CMP_OUT_WIDTH   = 16 ; //initialize a parameter variable with value 16
+parameter ALU_SHIFT_OUT_WIDTH = 16 ; //initialize a parameter variable with value 16
+
+
+//-----------------------------------------------------------------------
+//                    Signals Decleration  
+//-----------------------------------------------------------------------
+
+   reg [A_WIDTH-1:0] A_TOP;
+   reg [B_WIDTH-1:0] B_TOP;
+   reg [ALU_FUN_WIDTH-1:0] ALU_FUN_TOP;
+   reg CLK_TOP;
+   reg RST_TOP;
+   wire [ALU_ARITH_OUT_WIDTH-1:0] Arith_OUT_tb;
+   wire Carry_OUT_tb;
+   wire Arith_Flag_tb;
+   wire [ALU_LOGIC_OUT_WIDTH-1:0] Logic_OUT_tb;
+   wire Logic_Flag_tb;
+   wire [ALU_CMP_OUT_WIDTH-1:0] CMP_OUT_tb;
+   wire CMP_Flag_tb;
+   wire [ALU_SHIFT_OUT_WIDTH-1:0] Shift_OUT_tb;
+   wire Shift_Flag_tb;
+  
+  
+//-----------------------------------------------------------------------
+//                         Initial BLock   
+//-----------------------------------------------------------------------
+
+initial
+begin
+    A_TOP = 16'b1011011010010001;
+    B_TOP = 16'b1110110001001011;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b0;
+    CLK_TOP = 1'b0;
+    #3
+    A_TOP = 16'b111000011000011;
+    B_TOP = 16'b1100011001111001;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100000011001000;
+    B_TOP = 16'b1101001000010010;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111010111001100;
+    B_TOP = 16'b110000011010010;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111010011101100;
+    B_TOP = 16'b100101111011101;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000010100011110;
+    B_TOP = 16'b1000111010111110;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110111110000001;
+    B_TOP = 16'b1000101101100011;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100000011010101;
+    B_TOP = 16'b110001111011;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11011111101110;
+    B_TOP = 16'b110000100110010;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001111100100001;
+    B_TOP = 16'b1011001000100100;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110110110101100;
+    B_TOP = 16'b111111010110100;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101011100010010;
+    B_TOP = 16'b1101111000001100;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110000011110111;
+    B_TOP = 16'b1101011010100110;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001101101010;
+    B_TOP = 16'b101111000001100;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101000000000;
+    B_TOP = 16'b1110011011100101;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110111101110001;
+    B_TOP = 16'b1110000101010111;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100110100001000;
+    B_TOP = 16'b100110010101111;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110010010101110;
+    B_TOP = 16'b1000010111111011;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110110101010110;
+    B_TOP = 16'b1000101100111100;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101110001101011;
+    B_TOP = 16'b1111000111100101;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111110100101;
+    B_TOP = 16'b110010011001010;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010111000001110;
+    B_TOP = 16'b11000110100100;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110001000110001;
+    B_TOP = 16'b10111000111;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110101001000110;
+    B_TOP = 16'b1101110010101100;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101111101010;
+    B_TOP = 16'b10100001100101;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11110011010;
+    B_TOP = 16'b1111110111100111;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110101110110011;
+    B_TOP = 16'b1001001000101;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11010111101001;
+    B_TOP = 16'b10100100110110;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100110100110;
+    B_TOP = 16'b101100110010110;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11111011101110;
+    B_TOP = 16'b111010000001000;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110100101110001;
+    B_TOP = 16'b101101110100;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101011010100011;
+    B_TOP = 16'b1100101011111010;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101101000110011;
+    B_TOP = 16'b1000101000101000;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000101111001001;
+    B_TOP = 16'b101101111001110;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001100110011111;
+    B_TOP = 16'b1011010000111;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10110000111000;
+    B_TOP = 16'b111011010001111;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000010011010110;
+    B_TOP = 16'b1110011010101111;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11100000101101;
+    B_TOP = 16'b100010000111000;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101010100100;
+    B_TOP = 16'b1101011011110100;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011000111100010;
+    B_TOP = 16'b1001001111111000;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111000101100001;
+    B_TOP = 16'b1000101100011111;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100010111001110;
+    B_TOP = 16'b111110011000100;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010100001011111;
+    B_TOP = 16'b1010000110010101;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010001000011111;
+    B_TOP = 16'b1101010011101000;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101110101001010;
+    B_TOP = 16'b1011001111010100;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110100100100111;
+    B_TOP = 16'b11011011000001;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111010101010011;
+    B_TOP = 16'b1101001111010001;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11001001011001;
+    B_TOP = 16'b101100110001011;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10110100000001;
+    B_TOP = 16'b101110011100011;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101010000100010;
+    B_TOP = 16'b1011010100101000;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010011110000111;
+    B_TOP = 16'b111010110111111;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010000101000110;
+    B_TOP = 16'b100100101000;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101101100000;
+    B_TOP = 16'b1010001100000001;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11111011011110;
+    B_TOP = 16'b11100001011110;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100100010100110;
+    B_TOP = 16'b101111010111110;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011000000101001;
+    B_TOP = 16'b1100001010011010;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110010001110110;
+    B_TOP = 16'b100111011111111;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001101010;
+    B_TOP = 16'b101001110001101;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101101111010010;
+    B_TOP = 16'b101011100100;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11000111011011;
+    B_TOP = 16'b1010111000010111;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010001100100;
+    B_TOP = 16'b10001010000;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111110001011000;
+    B_TOP = 16'b1001000110101001;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100011011101101;
+    B_TOP = 16'b101000110101101;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111011111111111;
+    B_TOP = 16'b100101011111001;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100110011010111;
+    B_TOP = 16'b1110100101010010;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010010110010111;
+    B_TOP = 16'b10000111110011;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100011010101000;
+    B_TOP = 16'b1100001111111000;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010110101110000;
+    B_TOP = 16'b111110110111101;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101110100100011;
+    B_TOP = 16'b10001010011110;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100101000;
+    B_TOP = 16'b10111111101000;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100101101011011;
+    B_TOP = 16'b111000110110101;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101100010010100;
+    B_TOP = 16'b1001000110101000;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101111010000101;
+    B_TOP = 16'b111110011111100;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011110011111101;
+    B_TOP = 16'b11101000111010;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000110001101101;
+    B_TOP = 16'b1111010010110000;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110001101000010;
+    B_TOP = 16'b100000011100011;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010110111111001;
+    B_TOP = 16'b1000010010010100;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001001001010;
+    B_TOP = 16'b10101100110111;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001011001010;
+    B_TOP = 16'b1000000101100100;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000010101010110;
+    B_TOP = 16'b111100011110111;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110001111000101;
+    B_TOP = 16'b111111111101101;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010110110010110;
+    B_TOP = 16'b110101010;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111110001000000;
+    B_TOP = 16'b101011001101010;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111110111000001;
+    B_TOP = 16'b1011111001001001;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010101000101000;
+    B_TOP = 16'b1010110100101001;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000011100111010;
+    B_TOP = 16'b10100001100000;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100011110011110;
+    B_TOP = 16'b111100101101011;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011001100011110;
+    B_TOP = 16'b101011100010000;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100000011110110;
+    B_TOP = 16'b1101101000001001;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111110111101101;
+    B_TOP = 16'b101101111010011;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100101111110111;
+    B_TOP = 16'b110110110110;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110101100100011;
+    B_TOP = 16'b111111010111011;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001010010011000;
+    B_TOP = 16'b100111100001101;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111011011010110;
+    B_TOP = 16'b1110110100011011;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010111001011110;
+    B_TOP = 16'b1011010010011110;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100000011110010;
+    B_TOP = 16'b100101101100101;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111011011110001;
+    B_TOP = 16'b1111011101001011;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11101110101000;
+    B_TOP = 16'b11010110010100;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11100101100;
+    B_TOP = 16'b10001110111;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001111000011011;
+    B_TOP = 16'b1110100000100011;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000000100010101;
+    B_TOP = 16'b10011100010101;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001011000110101;
+    B_TOP = 16'b101010111101110;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111110110000000;
+    B_TOP = 16'b1011100110101100;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10100001001001;
+    B_TOP = 16'b10010110110110;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001101110011;
+    B_TOP = 16'b1010001100101111;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001010000010010;
+    B_TOP = 16'b100010011010001;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100010100101000;
+    B_TOP = 16'b110010010;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111001011101001;
+    B_TOP = 16'b11011000100000;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110011111001100;
+    B_TOP = 16'b1001000111101100;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101010001111011;
+    B_TOP = 16'b1011101010100000;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001010101110;
+    B_TOP = 16'b1101000111101110;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100001001010100;
+    B_TOP = 16'b11010011100000;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100111011100111;
+    B_TOP = 16'b1001101000000001;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110010001110111;
+    B_TOP = 16'b1010001110100011;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11101000100110;
+    B_TOP = 16'b11110101000100;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110110100100100;
+    B_TOP = 16'b11011010001000;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10111000110010;
+    B_TOP = 16'b1111000000000110;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101001110110010;
+    B_TOP = 16'b1100110111011111;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011110100100;
+    B_TOP = 16'b100000010001010;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10111010010101;
+    B_TOP = 16'b11001111100001;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110001111101111;
+    B_TOP = 16'b1101010010010110;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110111001010110;
+    B_TOP = 16'b1101101001111000;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001010001100111;
+    B_TOP = 16'b1100000100000101;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010000010110011;
+    B_TOP = 16'b1001110101001001;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001011000011001;
+    B_TOP = 16'b1101011110000;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010111000101111;
+    B_TOP = 16'b111101001011;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110100101111000;
+    B_TOP = 16'b1001110100101000;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110101101101;
+    B_TOP = 16'b111000101101011;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101101100001010;
+    B_TOP = 16'b1101010011110110;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001101011001;
+    B_TOP = 16'b1011001011111000;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10010000010000;
+    B_TOP = 16'b1111101101011100;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101100111000010;
+    B_TOP = 16'b111100000100110;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100011100001000;
+    B_TOP = 16'b1101000100011100;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100001111101101;
+    B_TOP = 16'b10001010110111;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010111101110001;
+    B_TOP = 16'b101101101010;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110000001000100;
+    B_TOP = 16'b1001000111100010;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111111001110100;
+    B_TOP = 16'b101101101101100;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110010001100011;
+    B_TOP = 16'b10011100100100;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111001111110010;
+    B_TOP = 16'b100001011100100;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111000001000100;
+    B_TOP = 16'b1111000010111011;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000010100110010;
+    B_TOP = 16'b101101110000010;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101101100100010;
+    B_TOP = 16'b100001101101100;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010000111111000;
+    B_TOP = 16'b1000011001111111;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111000100100;
+    B_TOP = 16'b110001101010000;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110010111;
+    B_TOP = 16'b100010101000;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100101101101000;
+    B_TOP = 16'b100111000011111;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011010111100111;
+    B_TOP = 16'b1111011101101110;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001101011011110;
+    B_TOP = 16'b1110111001011010;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100010110111;
+    B_TOP = 16'b1011011101101000;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100011010101001;
+    B_TOP = 16'b10001011010011;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100100110;
+    B_TOP = 16'b1111010101010110;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011010001101010;
+    B_TOP = 16'b1110111011010100;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10111000110111;
+    B_TOP = 16'b1111110011011011;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11101000101001;
+    B_TOP = 16'b100111110011110;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110100100100;
+    B_TOP = 16'b1011000111011010;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111111001011;
+    B_TOP = 16'b10100000100101;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101010010101;
+    B_TOP = 16'b111011001011011;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10100101101100;
+    B_TOP = 16'b1011000110001000;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010011100100100;
+    B_TOP = 16'b11010111010011;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111000001101100;
+    B_TOP = 16'b1101010111111011;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1010111000100100;
+    B_TOP = 16'b10001111001101;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100101101010101;
+    B_TOP = 16'b111100011110;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000100111001101;
+    B_TOP = 16'b1000000101101000;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111101111001010;
+    B_TOP = 16'b1101010000111011;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101110011110;
+    B_TOP = 16'b110001010100;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100011111100;
+    B_TOP = 16'b1011001000010101;
+    ALU_FUN_TOP = 4'b1001;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11011000100110;
+    B_TOP = 16'b1101100100000000;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1110011000010011;
+    B_TOP = 16'b1010011111010110;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10001000111001;
+    B_TOP = 16'b1010000001111000;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101000011001001;
+    B_TOP = 16'b1100000101111110;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111011001011010;
+    B_TOP = 16'b1010001100110101;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101001111001000;
+    B_TOP = 16'b11010001001111;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001010110101;
+    B_TOP = 16'b1110101101111100;
+    ALU_FUN_TOP = 4'b1111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1100101100111110;
+    B_TOP = 16'b1111010100;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000110011011;
+    B_TOP = 16'b1010100001000101;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10001101110101;
+    B_TOP = 16'b10001010101;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b110011100100110;
+    B_TOP = 16'b1110101001011000;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11111110;
+    B_TOP = 16'b1100011110000111;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111010110000001;
+    B_TOP = 16'b1010111011110000;
+    ALU_FUN_TOP = 4'b111;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111001110111000;
+    B_TOP = 16'b1111000011010000;
+    ALU_FUN_TOP = 4'b1101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011011100001011;
+    B_TOP = 16'b1100011110111101;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111000101101101;
+    B_TOP = 16'b1101101110110011;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011000011111000;
+    B_TOP = 16'b111010110100101;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1011000011001110;
+    B_TOP = 16'b1110010111001000;
+    ALU_FUN_TOP = 4'b110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111011100110010;
+    B_TOP = 16'b1101010010101100;
+    ALU_FUN_TOP = 4'b10;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101000010000111;
+    B_TOP = 16'b111100010;
+    ALU_FUN_TOP = 4'b0;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001111011001;
+    B_TOP = 16'b10010100000010;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111000011011100;
+    B_TOP = 16'b1010110100001000;
+    ALU_FUN_TOP = 4'b1;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b100110101110110;
+    B_TOP = 16'b111011101001111;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10110110001011;
+    B_TOP = 16'b110101110000;
+    ALU_FUN_TOP = 4'b101;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111101111110001;
+    B_TOP = 16'b11100010110011;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b10010000000101;
+    B_TOP = 16'b100111110110000;
+    ALU_FUN_TOP = 4'b1100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1101111001000011;
+    B_TOP = 16'b101000000100110;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001011100110001;
+    B_TOP = 16'b1111110000110010;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000011110001001;
+    B_TOP = 16'b1110111000110111;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1000001111010111;
+    B_TOP = 16'b1101001011100101;
+    ALU_FUN_TOP = 4'b1010;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b11000111010;
+    B_TOP = 16'b1010111100001101;
+    ALU_FUN_TOP = 4'b100;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b111001100010101;
+    B_TOP = 16'b10010011011111;
+    ALU_FUN_TOP = 4'b1110;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b101000011010100;
+    B_TOP = 16'b1110100011111111;
+    ALU_FUN_TOP = 4'b1011;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1111110100001111;
+    B_TOP = 16'b1111010011100110;
+    ALU_FUN_TOP = 4'b11;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001101001000111;
+    B_TOP = 16'b1111000100001;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #10
+    A_TOP = 16'b1001101001000111;
+    B_TOP = 16'b1111000100001;
+    ALU_FUN_TOP = 4'b1000;
+    RST_TOP = 1'b1;
+    #100
+$finish ;                                                                                      
+end
+
+
+
+  
+//-----------------------------------------------------------------------
+//                        Clock Generator  
+//-----------------------------------------------------------------------
+  
+  always #5 CLK_TOP = ~CLK_TOP ; //this is a comment
+  
+  
+//-----------------------------------------------------------------------
+//                       instaniate design instance   
+//-----------------------------------------------------------------------
+
+  ALU_TOP DUT (
+    .A_TOP(A_TOP),
+    .B_TOP(B_TOP), 
+    .ALU_FUN_TOP(ALU_FUN_TOP), 
+    .CLK_TOP(CLK_TOP),
+    .RST_TOP(RST_TOP),
+    .Arith_OUT_TOP(Arith_OUT_tb),
+    .Carry_OUT_TOP(Carry_OUT_tb),
+    .Arith_Flag_TOP(Arith_Flag_tb),
+    .Logic_OUT_TOP(Logic_OUT_tb),
+    .Logic_Flag_TOP(Logic_Flag_tb),
+    .CMP_OUT_TOP(CMP_OUT_tb),
+    .CMP_Flag_TOP(CMP_Flag_tb),
+    .Shift_OUT_TOP(Shift_OUT_tb),
+    .Shift_Flag_TOP(Shift_Flag_tb)
+  );
+  
+endmodule
