@@ -1,4 +1,4 @@
-import os # noqa
+import os  # noqa
 
 
 def printing():
