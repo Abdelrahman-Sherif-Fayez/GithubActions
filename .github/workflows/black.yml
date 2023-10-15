@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: psf/black@stable
-        with:
-          options: "--check --verbose"
+      
+      - name: Install Black
+        run: |
+          pip install black==23.9.1
+
+      - name: Run Black
+        run: black --check .
+      # - uses: psf/black@stable
