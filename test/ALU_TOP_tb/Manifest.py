@@ -1,5 +1,5 @@
 files = [
-    "ALU_TOP_tb_generated.sv"
+    "ALU_TOP_tb_generated.v"
 ]
 
 modules = {
