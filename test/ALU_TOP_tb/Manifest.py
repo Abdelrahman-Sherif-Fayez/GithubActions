@@ -1,7 +1,5 @@
-files = [
-    "ALU_TOP_tb_generated.v"
-]
+files = ["ALU_TOP_tb_generated.v"]
 
 modules = {
-  "local" : [ "../../top/" ],
+    "local": ["../../top/"],
 }
