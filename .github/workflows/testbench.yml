@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -17,11 +17,11 @@ jobs:
       - name: Install cocotb and pyuvm
         run: pip install -r requirements.txt
 
-      # - name: Install ModelSim dependencies
-      #   run: |
-      #     sudo dpkg --add-architecture i386
-      #     sudo apt-get update
-      #     sudo apt-get install lib32z1 lib32stdc++6 libexpat1:i386 libc6:i386 libsm6:i386 libncurses5:i386 libx11-6:i386 zlib1g:i386 libxext6:i386 libxft2:i386 libgcc-s1:i386
+      - name: Install ModelSim dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install lib32z1 lib32stdc++6 libexpat1:i386 libc6:i386 libsm6:i386 libncurses5:i386 libx11-6:i386 zlib1g:i386 libxext6:i386 libxft2:i386 libgcc-s1:i386
       
       - name: Cache ModelSim
         uses: actions/cache@v2
