@@ -27,13 +27,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/intelFPGA/*
-          key: ${{ runner.os }}-modelsim-17.0
+          key: ${{ runner.os }}-modelsim-20.1
 
       - name: Install ModelSim if not cached
-        run: stat $HOME/intelFPGA/17.0/modelsim_ase || (curl -L 'https://downloads.intel.com/akdlm/software/acdsinst/17.0std.0/595/ib_installers/ModelSimSetup-17.0.0.595-linux.run' -o ModelSimSetup.run && chmod +x ModelSimSetup.run && ./ModelSimSetup.run --mode unattended --accept_eula 1 )
+        run: stat $HOME/intelFPGA/20.1/modelsim_ase || (curl -L 'https://downloads.intel.com/akdlm/software/acdsinst/20.1std.1/720/ib_installers/ModelSimSetup-20.1.1.720-linux.run' -o ModelSimSetup.run && chmod +x ModelSimSetup.run && ./ModelSimSetup.run --mode unattended --accept_eula 1 )
       
       - name: Add ModelSim to PATH
-        run: echo "$HOME/intelFPGA/17.0/modelsim_ase/bin" >> $GITHUB_PATH
+        run: echo "$HOME/intelFPGA/20.1/modelsim_ase/bin" >> $GITHUB_PATH
 
       - name: Top Testbench
         run: cd $GITHUB_WORKSPACE/PyUvm_test && make
