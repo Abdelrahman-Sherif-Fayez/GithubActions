@@ -18,6 +18,4 @@ jobs:
         run: pip install flake8
         
       - name: flake8 Lint
-        uses: flake8 --ignore=E203 --max-line-length=88 .
-        
-
+        run: flake8 --ignore=E203 --max-line-length=88 .
