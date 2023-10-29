@@ -33,5 +33,14 @@ jobs:
           git add -A
           git diff-index --quiet HEAD || git commit -m "Apply Black formatting Changes"
 
-      - name: Push changes
-        run : git push origin main
+      - name: Github Push Action
+        uses: zyrouge/github-push-action@v1.0.9
+        with:
+          # GitHub token or PAT token
+          github-token: ${{ github.token }}
+          # GitHub Repository (format: `username/repo`)
+          repository: ${{ github.repository }}
+          # Repository Branch
+          branch: ${{ github.main }}
+          # Determines if force push is used
+         
