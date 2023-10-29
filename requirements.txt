@@ -1,2 +1,3 @@
-hdlmake==3.3
+cocotb
+pyuvm
 six==1.14.0
