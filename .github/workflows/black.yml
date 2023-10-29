@@ -41,6 +41,5 @@ jobs:
           # GitHub Repository (format: `username/repo`)
           repository: ${{ github.repository }}
           # Repository Branch
-          branch: ${{ github.main }}
-          # Determines if force push is used
-         
+          branch: ${{ github.ref_name}}
+        
