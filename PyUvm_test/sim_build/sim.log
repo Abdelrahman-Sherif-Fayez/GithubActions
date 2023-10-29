@@ -10,7 +10,7 @@ Reading pref.tcl
 # vmap work sim_build/work 
 # Modifying modelsim.ini
 # QuestaSim-64 vlog 2021.1 Compiler 2021.01 Jan 19 2021
-# Start time: 18:12:24 on Oct 29,2023
+# Start time: 23:11:50 on Oct 29,2023
 # vlog -work work "+define+COCOTB_SIM" -sv -timescale 1us/1us -mfcu "+acc" C:/Users/stc/OneDrive/Documents/githubActions_Repo/GithubActions/PyUvm_test/tinyalu.sv 
 # -- Compiling module tinyalu
 # -- Compiling module single_cycle
@@ -18,10 +18,10 @@ Reading pref.tcl
 # 
 # Top level modules:
 # 	tinyalu
-# End time: 18:12:24 on Oct 29,2023, Elapsed time: 0:00:00
+# End time: 23:11:50 on Oct 29,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -onfinish exit -pli "C:/Users/stc/miniconda3/Lib/site-packages/cocotb/libs/cocotbvpi_modelsim.dll" sim_build/work.tinyalu 
-# Start time: 18:12:26 on Oct 29,2023
+# Start time: 23:11:53 on Oct 29,2023
 # ** Note: (vsim-3812) Design is being optimized...
 # ** Warning: (vsim-3865) Due to PLI being present, global +acc is being enabled automatically. This will cause your simulation to run very slowly. Please use vsim -no_autoacc to disable this feature. This feature is now deprecated and will be removed from future releases.
 # //  Questa Sim-64
@@ -49,7 +49,7 @@ Reading pref.tcl
 # 
 #      0.00ns INFO     cocotb                             Running tests with cocotb v1.8.0 from C:\Users\stc\miniconda3\Lib\site-packages\cocotb
 # 
-#      0.00ns INFO     cocotb                             Seeding Python random module with 1698595964
+#      0.00ns INFO     cocotb                             Seeding Python random module with 1698613932
 # 
 #      0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages
 # 
@@ -61,13 +61,13 @@ Reading pref.tcl
 # 
 #                                                           Run with random operands
 # 
-# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 08 ADD 38 = 0040
+# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 80 ADD ba = 013a
 # 
-# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 88 AND 1c = 0008
+# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 6f AND 90 = 0000
 # 
-# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 74 XOR 4b = 003f
+# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 06 XOR 80 = 0086
 # 
-# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 25 MUL 14 = 02e4
+# 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(81) [uvm_test_top.env.scoreboard]: PASSED: 9c MUL 4d = 2eec
 # 
 # 120000.00ns INFO     ..PyUvm_test\testbench_UVM4.py(94) [uvm_test_top.env.scoreboard]: Covered all operations
 # 
@@ -95,13 +95,13 @@ Reading pref.tcl
 # 
 #                                                         **************************************************************************************
 # 
-#                                                         ** testbench_UVM4.RandomTest      PASS      121000.00           0.01   13434741.21  **
+#                                                         ** testbench_UVM4.RandomTest      PASS      121000.00           0.02    7739630.40  **
 # 
-#                                                         ** testbench_UVM4.MaxTest         PASS      120000.00           0.01   20004629.57  **
+#                                                         ** testbench_UVM4.MaxTest         PASS      120000.00           0.00           inf  **
 # 
 #                                                         **************************************************************************************
 # 
-#                                                         ** TESTS=2 PASS=2 FAIL=0 SKIP=0             241000.00           0.24    1001064.88  **
+#                                                         ** TESTS=2 PASS=2 FAIL=0 SKIP=0             241000.00           0.27     907285.97  **
 # 
 #                                                         **************************************************************************************
 # 
@@ -109,5 +109,5 @@ Reading pref.tcl
 # 
 # ** Note: $finish
 #    Time: 241 us  Iteration: 0  Instance: /tinyalu
-# End time: 18:12:45 on Oct 29,2023, Elapsed time: 0:00:19
+# End time: 23:12:12 on Oct 29,2023, Elapsed time: 0:00:19
 # Errors: 0, Warnings: 1
