@@ -1,6 +1,6 @@
 CWD=$(shell pwd)
 COCOTB_REDUCED_LOG_FMT = True
-SIM ?= ModelSim
+SIM ?= modelsim
 # VHDL_SOURCES =$(CWD)/../tinyalu_hdl/vhdl/single_cycle_add_and_xor.vhd \
               $(CWD)/../tinyalu_hdl/vhdl/three_cycle_mult.vhd \
               $(CWD)/../tinyalu_hdl/vhdl/tinyalu.vhd
