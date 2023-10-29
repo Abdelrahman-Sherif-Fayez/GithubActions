@@ -34,6 +34,6 @@ jobs:
       
       - name: Add ModelSim to PATH
         run: echo "$HOME/intelFPGA/20.1/modelsim_ase/bin" >> $GITHUB_PATH
-        
+
       - name: Top Testbench
-        run: cd $GITHUB_WORKSPACE/PyUVM && make
+        run: cd $GITHUB_WORKSPACE/PyUvm_test && make
